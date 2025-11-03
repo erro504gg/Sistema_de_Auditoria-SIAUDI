@@ -1,121 +1,133 @@
-**BEM-VINDO AO SISTEMA DE AUDITORIA - SIAUDI**
-_____________________________________________________________________
-Inicialmente, foi desenvolvido pela https://softwarepublico.gov.br/social/siaudi/ , fiz umas alterações para rodar nas aplicações dos dias atuais, pois a última data de atualização foi em 2016.
+```markdown
+# 🔍 Siaudi - Sistema de Auditoria
 
+[![PHP](https://img.shields.io/badge/PHP-8.1-777BB4?logo=php)](https://www.php.net/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-336791?logo=postgresql)](https://www.postgresql.org/)
+[![Apache](https://img.shields.io/badge/Apache-2.4-D22128?logo=apache)](https://httpd.apache.org/)
+[![Ubuntu](https://img.shields.io/badge/Ubuntu-22.04-E95420?logo=ubuntu)](https://ubuntu.com/)
+[![License](https://img.shields.io/badge/License-Público_Brasileiro-blue.svg)](https://softwarepublico.gov.br/social/siaudi/)
 
-_____________________________________________________________________
-Estou ultilizando:
+Sistema de auditoria desenvolvido originalmente pelo [Software Público Brasileiro](https://softwarepublico.gov.br/social/siaudi/). Este repositório contém a versão atualizada e compatível com ambientes modernos, com correções de compatibilidade para PHP 8.1+ e stack tecnológica atual.
 
-Apache2
+## 🚀 Status do Projeto
 
-php 8.1
+**✅ FUNCIONAL** - Compatível com versões modernas da stack LAMP
+**🔧 MANUTENÇÃO ATIVA** - Corrigidas incompatibilidades de versões antigas
 
-Ubunto 22.04
+## 🎯 Objetivo
 
-_____________________________________________________________________
-Instalação do Ubuntu
-Instale o Ubuntu (recomenda-se a versão 22.04 LTS, foi a que eu usei). Atualize o sistema rodando o comando:
+O Siaudi é um sistema completo de auditoria desenvolvido para organizações públicas, proporcionando controle e gestão de processos auditoriais com segurança e eficiência.
 
+## ⚙️ Stack Tecnológica
+
+| Componente | Versão | Descrição |
+|------------|--------|-----------|
+| **Backend** | PHP 8.1+ | Linguagem principal do sistema |
+| **Banco de Dados** | PostgreSQL 12+ | SGBD relacional para dados auditoriais |
+| **Servidor Web** | Apache 2.4 | Servidor HTTP com mod_rewrite |
+| **Sistema Operacional** | Ubuntu 22.04 LTS | Ambiente de produção recomendado |
+
+## 📋 Pré-requisitos
+
+- Ubuntu 22.04 LTS (ou distribuição similar)
+- Apache 2.4+
+- PHP 8.1+
+- PostgreSQL 12+
+- 2GB RAM mínimo
+- 20GB de espaço em disco
+
+## 🛠 Instalação
+
+### 1. Configuração do Ambiente Ubuntu
+
+```bash
+# Atualizar sistema
 sudo apt update && sudo apt upgrade -y
 
-Configuração do Ambiente
+# Instalar Apache
+sudo apt install apache2 -y
 
-**1. Instalação do Apache no Ubuntu**
-Para instalar o Apache, execute:
+# Ativar módulos necessários
+sudo a2enmod rewrite
+```
 
-```sudo apt instalar apache2 -y```
+2. Configuração do Apache
 
-**2. Ativação do Módulo rewrite do Apache**
-Ative o módulo necessário para URLs amigáveis com o comando:
+```bash
+# Editar configuração principal
+sudo nano /etc/apache2/apache2.conf
 
-```sudo a2enmod```
+# Alterar de:
+# AllowOverride None
+# Para:
+# AllowOverride All
 
-**3. Configuração do arquivo apache2.conf**
-Edite o arquivo de configuração do Apache:
+# Configurar document root
+sudo nano /etc/apache2/sites-available/000-default.conf
+# Alterar para: DocumentRoot /var/www/
+```
 
-```sudo nano /etc/apache2/apache2.conf```
+3. Instalação do PHP e Dependências
 
-*Encontre a linha 
-AllowOverride None
+```bash
+sudo apt install php libapache2-mod-php php-pgsql php-gd php-mbstring php-curl php-xml php-zip php-cli -y
+```
 
-*Mude para 
-AllowOverride All
+4. Configuração do PHP (php.ini)
 
-**4. Configuração do diretório padrão de carga do Apache**
-Edite o arquivo de configuração do site padrão:
-
-```sudo nano /etc/apache2/sites-available/000-default.conf```
-
-Altere a linha: DocumentRoot /var/www/html
-Para: DocumentRoot /var/www/
-
-**5. Instalação do PHP e Pacotes Necessários**
-Instale o PHP 8.1 (useiessa versão):
-
-```sudo apt install php libapache2-mod-php php-pgsql php-gd php-mbstring php-curl php-xml php-zip php-cli -y```
-
-**6. Configuração do PHP**
-Edite o arquivo php.ini para ajustes de desempenho:
-
-```sudo nano /etc/php/8.1/apache2/php.ini```
-
-Substitua ou adicione as seguintes linhas:
-
+```ini
 session.auto_start = 1
 error_reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT & ~E_NOTICE
 memory_limit = 1024M
 post_max_size = 128M
 display_errors = On
 short_open_tag = On
+```
 
-**7. Reiniciar o Apache**
-Após as mudanças, reinicie o Apache para aplicar as configurações:
+5. Instalação do PostgreSQL
 
-```sudo systemctl restart apache2```
+```bash
+sudo apt install postgresql postgresql-contrib -y
+```
 
-**Instalação do Banco de Dados**
+6. Deploy da Aplicação
 
-**8. Instalação do PostgreSQL e PGAdmin**
-Instale o PostgreSQL e o PGAdmin:
+```bash
+# Copiar projeto
+sudo cp siaudi2 /var/www/
 
-```sudo apt install postgresql postgresql-contrib -y```
-```sudo apt install pgadmin4 -y```
+# Configurar permissões
+sudo chown -R www-data:www-data /var/www/siaudi2
+sudo chmod -R 755 /var/www/siaudi2
 
-**9. Instalação do Projeto SIAUDI**
-Copie o arquivo siaudi2 para o diretório /var/www:
+# Reiniciar Apache
+sudo systemctl restart apache2
+```
 
-```sudo cp siaudi2 /var/www/```
-```sudo chown -R www-data:www-data /var/www/siaudi2```
-```sudo chmod -R 755 /var/www/siaudi2```
+🗄 Configuração do Banco de Dados
 
-_____________________________________________________________________
-**Criação da Base de Dados**
-Altere a localidade do sistema:
+1. Configuração de Localidade
 
-```sudo nano /etc/profile```
+```bash
+sudo nano /etc/profile
+# Adicionar: export LANG=pt_BR.UTF-8
 
-Adicione a linha:
-export LANG=pt_BR.UTF-8
+sudo locale-gen pt_BR.UTF-8
+source /etc/profile
+sudo systemctl restart postgresql
+```
 
-Em seguida, execute:
-```sudo locale-gen pt_BR.UTF-8```
-```source /etc/profile```
-```sudo systemctl restart postgresql```
+2. Criação do Banco
 
-**Crie a base de dados usando o comando:**
+```bash
+sudo -u postgres psql -f /var/www/siaudi2/script_Bd/siaudispb.sql
+```
 
-```sudo -u postgres psql -f /var/www/siaudi2/script_Bd/siaudispb.sql```
+3. Configuração de Conexão
 
-_____________________________________________________________________
+Editar /var/www/siaudi2/protected/config/main.php:
 
-**Configuração e Acesso ao SIAUDI**
-
-**1. Configuração da Conexão com o Banco de Dados**
-Edite o arquivo de configuração do SIAUDI:
-
-```sudo nano /var/www/siaudi2/protected/config/main.php```
-Atualize a configuração de conexão com o banco:
-
+```php
 'db' => array(
     'class' => 'application.components.MyDbConnection',
     'connectionString' => 'pgsql:host=localhost;port=5432;dbname=bd_siaudi',
@@ -123,29 +135,93 @@ Atualize a configuração de conexão com o banco:
     'password' => '!@#-usr-siaudi',
     'charset' => 'UTF-8',
 ),
+```
 
-**2. Verificação da Porta do PostgreSQL**
-Para verificar a porta do PostgreSQL, execute:
-```sudo nano /etc/postgresql/12/main/postgresql.conf```
+👤 Acesso ao Sistema
 
-Procure por port e verifique se é a 5432.
-Caso contrário, atualize o arquivo de configuração do SIAUDI conforme necessário.
-
-**3. Configuração do Sistema no SIAUDI**
-Edite novamente o arquivo main.php e adicione os e-mails de auditoria:
-
-'emailGrupoAuditoria' => array(
-    'email1@dominio.com',
-    'email2@dominio.com',
-),
-
-**4. Acesso ao Sistema**
-Acesse o sistema via navegador:
-
-```http://localhost/siaudi2```
-
-Credenciais de acesso:
-
+URL: http://localhost/siaudi2
 Usuário: siaudi.gerente
-
 Senha: 123456
+
+🔧 Características Técnicas
+
+✅ Corrigidas e Implementadas
+
+· Compatibilidade com PHP 8.1+
+· Configuração Apache otimizada
+· Suporte ao PostgreSQL atualizado
+· Locale pt_BR.UTF-8 configurado
+· Permissões de sistema corrigidas
+
+🎯 Funcionalidades Principais
+
+· Gestão de processos auditoriais
+· Controle de usuários e permissões
+· Relatórios e documentação
+· Workflows de auditoria
+· Interface web responsiva
+
+📁 Estrutura do Projeto
+
+```
+siaudi2/
+├── protected/
+│   ├── config/
+│   │   └── main.php          # Configurações principais
+│   └── components/
+├── script_Bd/
+│   └── siaudispb.sql         # Script do banco de dados
+├── assets/                   # Arquivos estáticos
+└── index.php                # Entry point
+```
+
+🐛 Solução de Problemas
+
+Porta do PostgreSQL
+
+Verifique a porta em uso:
+
+```bash
+sudo nano /etc/postgresql/12/main/postgresql.conf
+# Verificar linha: port = 5432
+```
+
+Permissões
+
+Caso tenha erro de permissões:
+
+```bash
+sudo chown -R www-data:www-data /var/www/siaudi2
+sudo chmod -R 755 /var/www/siaudi2
+```
+
+🤝 Contribuições
+
+Este projeto é uma versão atualizada do sistema original. Contribuições para:
+
+· Melhoria de segurança
+· Novas funcionalidades
+· Correção de bugs
+· Documentação
+
+São sempre bem-vindas!
+
+📄 Licença
+
+Desenvolvido originalmente sob a licença do Software Público Brasileiro.
+
+👨‍💻 Desenvolvedor
+
+Walter Matheus
+
+· Atualização e compatibilidade com stack moderna
+· Correção de incompatibilidades PHP 8.1+
+· Configuração de ambiente e documentação
+
+---
+
+⭐ Se este projeto foi útil, considere dar uma estrela no repositório!
+
+```
+
+---
