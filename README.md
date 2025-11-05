@@ -1,13 +1,9 @@
 ```markdown
 # 🔍 Siaudi - Sistema de Auditoria
 
-[![PHP](https://img.shields.io/badge/PHP-8.1-777BB4?logo=php)](https://www.php.net/)
-[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-336791?logo=postgresql)](https://www.postgresql.org/)
-[![Apache](https://img.shields.io/badge/Apache-2.4-D22128?logo=apache)](https://httpd.apache.org/)
-[![Ubuntu](https://img.shields.io/badge/Ubuntu-22.04-E95420?logo=ubuntu)](https://ubuntu.com/)
-[![License](https://img.shields.io/badge/License-Público_Brasileiro-blue.svg)](https://softwarepublico.gov.br/social/siaudi/)
-
-Sistema de auditoria desenvolvido originalmente pelo [Software Público Brasileiro](https://softwarepublico.gov.br/social/siaudi/). Este repositório contém a versão atualizada e compatível com ambientes modernos, com correções de compatibilidade para PHP 8.1+ e stack tecnológica atual.
+Sistema de auditoria desenvolvido originalmente pelo
+[Software Público Brasileiro](https://softwarepublico.gov.br/social/siaudi/)
+Este repositório contém a versão atualizada e compatível com ambientes modernos, com correções de compatibilidade para PHP 8.1+ e stack tecnológica atual.
 
 ## 🚀 Status do Projeto
 
