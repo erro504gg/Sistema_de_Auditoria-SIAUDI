@@ -3,7 +3,8 @@
 
 Sistema de auditoria desenvolvido originalmente pelo
 [Software Público Brasileiro](https://softwarepublico.gov.br/social/siaudi/)
-Este repositório contém a versão atualizada e compatível com ambientes modernos, com correções de compatibilidade para PHP 8.1+ e stack tecnológica atual.
+Este repositório contém a versão atualizada e compatível com ambientes modernos,
+com correções de compatibilidade para PHP 8.1+ e stack tecnológica atual.
 
 ## 🚀 Status do Projeto
 
